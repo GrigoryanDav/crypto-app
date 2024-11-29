@@ -2,16 +2,20 @@ import { requestUrls } from "../../util/constants/requestUrls";
 import { useFetch } from "../../hooks/useFetch";
 import { Table } from "antd";
 import type { TableProps } from "antd";
-import { CurrencyResponseModel } from "../../ts/types/CurrencyResponseModel";
+import { CurrencyListResponseModel } from "../../ts/types/CurrencyListResponseModel";
+import { ROUTE_PATHS } from "../../util/constants/routes";
+import { useNavigate } from "react-router-dom";
 
 
 const CryptoList = () => {
-    const { data, loading, error } = useFetch<CurrencyResponseModel[]>({
-        url: `${requestUrls.coinsMarkets}?vs_currency=usd`
+    const navigate = useNavigate()
+
+    const { data, loading, error } = useFetch<CurrencyListResponseModel[]>({
+        url: `${requestUrls.coinsMarkets}/coins/markets?vs_currency=usd&per_page=10`
     })
 
 
-    const columns: TableProps<CurrencyResponseModel>['columns'] = [
+    const columns: TableProps<CurrencyListResponseModel>['columns'] = [
         {
             title: '#ID',
             dataIndex: 'id',
@@ -44,16 +48,23 @@ const CryptoList = () => {
         }
     ]
 
-    const handleNavigateDetailPage = (row: CurrencyResponseModel) => {
-        console.log(row.id, '>>>>')
+    const handleNavigateDetailPage = (rowData: CurrencyListResponseModel) => {
+        navigate(`${ROUTE_PATHS.CRYPTO_DETAIL}/${rowData.id}`)
     }
 
     return (
         <div>
-            <Table 
+            <Table
                 columns={columns}
                 loading={loading}
                 dataSource={data || []}
+                pagination={{
+                    total: 100,
+                    onChange(page, pageSize) {
+                        console.log(page)
+                        console.log(pageSize, 'pageSize')
+                    }
+                }}
                 onRow={(row) => {
                     return {
                         onClick: () => handleNavigateDetailPage(row)
