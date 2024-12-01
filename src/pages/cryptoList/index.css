@@ -1,0 +1,32 @@
+.cryptoList_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(#0b004e, #1d152f, #002834);
+}
+
+.cryptoList_container > div {
+    max-width: 1000px;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+
+
+.ant-table {
+    background-color: blueviolet; 
+  }
+  
+  
+  .ant-table-tbody > tr {
+    background-color: rgb(174, 126, 219); 
+    cursor: pointer;
+  }
+  
+ 
+   .ant-table-tbody td {
+    color: white; 
+  }
+  
+   
