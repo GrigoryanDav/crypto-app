@@ -8,7 +8,7 @@ import { CurrencyCode } from "../../ts/enums/CurrencyCode";
 import { getPriceChanges } from "../../util/helpers/getPriceChanges";
 import { CurrencySymbols } from "../../util/constants/currencySymbols";
 import { ROUTE_PATHS } from "../../util/constants/routes";
-import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, plugins } from "chart.js";
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { PRICE_CHANGE_PERIODS } from "../../util/constants/priceChangePeriods";
 import './index.css'
