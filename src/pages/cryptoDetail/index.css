@@ -1,0 +1,41 @@
+.cryptoDetail_container {
+    min-height: calc(100vh - 86px);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background: linear-gradient(#0b004e, #1d152f, #002834)
+}
+
+.cryptoDetail_container > div {
+    max-width: 500px;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.ant-card {
+    background-color: blueviolet;
+}
+
+.ant-descriptions-item-label > span, .ant-descriptions-item-content > span {
+    color: white;
+}
+
+ .ant-card-meta-detail > .ant-card-meta-description {
+    color: white;
+}
+
+.ant-card-meta-detail > .ant-card-meta-title {
+    color: white;
+}
+
+.cryptoDetail_container > a {
+    padding: 50px 0;
+}
