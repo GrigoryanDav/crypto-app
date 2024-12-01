@@ -1,0 +1,12 @@
+.header_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: blueviolet;
+    border-bottom: 2px solid #3c3c3c;
+}
+
+.header_container > h1 {
+    text-transform: uppercase;
+    color: white;
+}
