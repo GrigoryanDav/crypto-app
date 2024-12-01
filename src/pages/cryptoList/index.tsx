@@ -1,7 +1,7 @@
 import { requestUrls } from "../../util/constants/requestUrls";
 import { useFetch } from "../../hooks/useFetch";
 import { useQueryParam } from "../../hooks/useQueryParam";
-import { Table } from "antd";
+import { Table, Spin } from "antd";
 import type { TableProps } from "antd";
 import { CurrencyListResponseModel } from "../../ts/types/CurrencyListResponseModel";
 import { ROUTE_PATHS } from "../../util/constants/routes";
@@ -24,6 +24,16 @@ const CryptoList = () => {
         url: `${requestUrls.coinsMarkets}/coins/markets?vs_currency=${currency}&per_page=${pageSize}&page=${page}`
     })
 
+    const handlePriceDailyColor = (price: number): string => {
+        if (price > 0) {
+            return 'green'
+        } else if (price < 0) {
+            return 'red'
+        } else {
+            return 'white'
+        }
+    }
+
 
     const columns: TableProps<CurrencyListResponseModel>['columns'] = useMemo(() => {
         return [
@@ -38,7 +48,7 @@ const CryptoList = () => {
                 key: 'image',
                 render: (value) => {
                     return (
-                        <img src={value} width={50} height={50} alt='crypto-logo'/>
+                        <img src={value} width={50} height={50} alt='crypto-logo' />
                     )
                 }
             },
@@ -50,7 +60,11 @@ const CryptoList = () => {
             {
                 title: 'Price Change 24',
                 dataIndex: 'price_change_24h',
-                key: 'price_change_24h,'
+                key: 'price_change_24h,',
+                render: (price) => {
+                    const color = handlePriceDailyColor(price)
+                    return (<span style={{ color: color }}>{price}</span>)
+                }
             },
             {
                 title: 'Price',
@@ -68,29 +82,37 @@ const CryptoList = () => {
         navigate(`${ROUTE_PATHS.CRYPTO_DETAIL}/${rowData.id}`)
     }
 
+    if(error) return ( <div>Error: {error}</div> )
+
     return (
         <div className="cryptoList_container">
-            <Table
-                columns={columns}
-                loading={loading}
-                dataSource={data || []}
-                pagination={{
-                    total: 100,
-                    current: +page,
-                    pageSize: +pageSize,
-                    onChange(page, pageSize) {
-                     setQueryParam({
-                        page,
-                        pageSize
-                     })
-                    }
-                }}
-                onRow={(row) => {
-                    return {
-                        onClick: () => handleNavigateDetailPage(row)
-                    }
-                }}
-            />
+            {
+                loading ? <Spin /> : (
+                    <>
+                        <Table
+                            columns={columns}
+                            loading={loading}
+                            dataSource={data || []}
+                            pagination={{
+                                total: 100,
+                                current: +page,
+                                pageSize: +pageSize,
+                                onChange(page, pageSize) {
+                                    setQueryParam({
+                                        page,
+                                        pageSize
+                                    })
+                                }
+                            }}
+                            onRow={(row) => {
+                                return {
+                                    onClick: () => handleNavigateDetailPage(row)
+                                }
+                            }}
+                        />
+                    </>
+                )
+            }
         </div>
     )
 }
