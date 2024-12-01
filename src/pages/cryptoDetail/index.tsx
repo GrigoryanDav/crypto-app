@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
 import { requestUrls } from "../../util/constants/requestUrls";
 import { CurrencyDetailsResponseModel } from "../../ts/types/CurrencyDetailsResponseModel";
-import { Card, Descriptions, Button } from "antd";
+import { Card, Descriptions, Button, Spin } from "antd";
 import { useQueryParam } from "../../hooks/useQueryParam";
 import { CurrencyCode } from "../../ts/enums/CurrencyCode";
 import { getPriceChanges } from "../../util/helpers/getPriceChanges";
@@ -71,33 +71,41 @@ const CryptoDetail = () => {
         },
     }
 
+    if (loading) return (<div>Error: {error}</div>)
+
     return (
         <div className="cryptoDetail_container">
-            <Card
-                cover={<img alt="coin" src={data?.image.large} style={{ width: '200px' }} />}
-            >
-                <Meta title={data?.name} description={data?.symbol} />
-                <Line data={chartData} options={chartOptions} style={{ backgroundColor: 'white', margin: '10px 0' }}/>
-                <Descriptions bordered column={1} style={{ marginTop: "20px" }}>
-                    <Descriptions.Item label='Current Price'>
-                        {CurrencySymbols[currency]} {currentPrice.toLocaleString()}
-                    </Descriptions.Item>
-                    <Descriptions.Item label='Market Capitalization'>
-                        {CurrencySymbols[currency]} {marketCap.toLocaleString()}
-                    </Descriptions.Item>
-                    <Descriptions.Item label='Crypto Market Rank'>
-                        {marketCapRank}
-                    </Descriptions.Item>
-                    <Descriptions.Item label='24 Hour High'>
-                        {CurrencySymbols[currency]} {high24h.toLocaleString()}
-                    </Descriptions.Item>
-                    <Descriptions.Item label='24 Hour Low'>
-                        {CurrencySymbols[currency]} {low24h.toLocaleString()}
-                    </Descriptions.Item>
-                </Descriptions>
-            </Card>
+            {
+                loading ? <Spin /> : (
+                    <>
+                        <Card
+                            cover={<img alt="coin" src={data?.image.large} style={{ width: '200px' }} />}
+                        >
+                            <Meta title={data?.name} description={data?.symbol} />
+                            <Line data={chartData} options={chartOptions} style={{ backgroundColor: 'white', margin: '10px 0' }} />
+                            <Descriptions bordered column={1} style={{ marginTop: "20px" }}>
+                                <Descriptions.Item label='Current Price'>
+                                    {CurrencySymbols[currency]} {currentPrice.toLocaleString()}
+                                </Descriptions.Item>
+                                <Descriptions.Item label='Market Capitalization'>
+                                    {CurrencySymbols[currency]} {marketCap.toLocaleString()}
+                                </Descriptions.Item>
+                                <Descriptions.Item label='Crypto Market Rank'>
+                                    {marketCapRank}
+                                </Descriptions.Item>
+                                <Descriptions.Item label='24 Hour High'>
+                                    {CurrencySymbols[currency]} {high24h.toLocaleString()}
+                                </Descriptions.Item>
+                                <Descriptions.Item label='24 Hour Low'>
+                                    {CurrencySymbols[currency]} {low24h.toLocaleString()}
+                                </Descriptions.Item>
+                            </Descriptions>
+                        </Card>
 
-            <Link to={ROUTE_PATHS.HOME}><Button>Crypto List</Button></Link>
+                        <Link to={ROUTE_PATHS.HOME}><Button>Crypto List</Button></Link>
+                    </>
+                )
+            }
         </div>
     )
 }
