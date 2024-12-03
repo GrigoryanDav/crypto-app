@@ -29,4 +29,7 @@
     color: white; 
   }
   
+  .ant-table-tbody > tr:hover td {
+    color: black;
+  }
    
