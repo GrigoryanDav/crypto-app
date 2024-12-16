@@ -27,6 +27,7 @@ const CryptoDetail = () => {
         },
     })
 
+    // Extract market data from the fetched response
     const { market_data } = data || {}
     const currentPrice = market_data?.current_price?.[currency] || 'N/A'
     const marketCap = market_data?.market_cap?.[currency] || 'N/A'
@@ -34,6 +35,7 @@ const CryptoDetail = () => {
     const high24h = market_data?.high_24h?.[currency] || 'N/A'
     const marketCapRank = market_data?.market_cap_rank || 'N/A'
 
+    // Prepare chart data for rendering the price change graph
     const chartData = {
         labels: PRICE_CHANGE_PERIODS,
         datasets: [
@@ -47,6 +49,7 @@ const CryptoDetail = () => {
         ]
     }
 
+    // Chart configuration options
     const chartOptions = {
         responsive: true,
         plugins: {

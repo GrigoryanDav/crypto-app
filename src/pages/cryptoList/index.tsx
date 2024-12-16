@@ -35,6 +35,7 @@ const CryptoList = () => {
     }
 
 
+    // Memoized columns definition for the table
     const columns: TableProps<CurrencyListResponseModel>['columns'] = useMemo(() => {
         return [
             {
@@ -63,7 +64,7 @@ const CryptoList = () => {
                 key: 'price_change_24h,',
                 render: (price) => {
                     const color = handlePriceDailyColor(price)
-                    return (<span style={{ color: color }}>{price}</span>)
+                    return (<span style={{ color: color }}>{price.toFixed(4)}</span>)
                 }
             },
             {

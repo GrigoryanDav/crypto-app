@@ -33,3 +33,21 @@
     color: black;
   }
    
+
+  @media (max-width: 768px) {
+    .cryptoList_container .ant-table-thead th:nth-child(2),
+    .cryptoList_container .ant-table-tbody td:nth-child(2) {
+        display: none; 
+    }
+
+    .cryptoList_container .ant-table {
+        font-size: 12px;
+    }
+}
+
+@media(max-width: 500px) {
+  .cryptoList_container .ant-table-thead th:nth-child(1),
+  .cryptoList_container .ant-table-tbody td:nth-child(1) {
+      display: none; 
+  }
+}
